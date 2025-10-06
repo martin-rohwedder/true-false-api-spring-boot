@@ -7,7 +7,7 @@ You can of course structure your game or application however you like, with this
 ## How to run the API
 
 This project is dockerized and you can use [Docker](https://www.docker.com/get-started/) to run the project, if you have Docker Desktop installed on your local machine.
-If you dont want to use docker, then you can package your app with maven locally, using the command `mvn clean package`.
+If you dont want to use docker, then you can package your app with [maven](https://maven.apache.org/install.html) locally, using the command `mvn clean package`.
 
 - Start by cloning the project down to your local machine, and open it up in your preferred IDE.
 
