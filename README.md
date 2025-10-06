@@ -45,7 +45,7 @@ networks:
     attachable: true
 ```
 
-- Remember to change the environment variables (Database user and password) to your liking, but proceding to the next step.
+- Remember to change the environment variables (DB user, password and DB name) to your liking, before proceding to the next step.
 
 To run the file open op a terminal at the location where you saved your `docker-compose-mysql.yml` file, and then use the following command:
 
