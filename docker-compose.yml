@@ -1,0 +1,17 @@
+services:
+  true-false-game-api-app:
+    container_name: true_false_game_api_app
+    build:
+      dockerfile: Dockerfile
+    env_file:
+      - path: .env.docker.prod
+    ports:
+      - "80:8080"
+    expose:
+      - "80"
+    networks:
+      mysql_db_network: {}
+
+networks:
+  mysql_db_network:
+    external: true
