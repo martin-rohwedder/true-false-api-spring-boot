@@ -97,13 +97,11 @@ To stop the container, use the following command:
 docker compose down
 ```
 
----
-
 ## Flyway Plugin for development
 
 This application uses flyway under the hood to migrate the database. To use the flyway plugin with maven for further development of the app, 
 you will have to configure it to your database. To do this, you can create a file in the project root called `flyway.conf` and populate it with the db url, user and password properties. 
-I usually also set the cleanDisabled property to false when developing, to fasten the cleaning of the database. The file properties could be set as follows:
+I usually also set the cleanDisabled property to false when developing, to allow running the clean command to the databsae. The file properties could be set as follows:
 
 ```properties title="flyway.conf"
 flyway.url=jdbc:mysql://<DB_HOST>:3306/<DB_NAME>
