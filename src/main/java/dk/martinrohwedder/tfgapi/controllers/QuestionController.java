@@ -9,4 +9,9 @@ public class QuestionController {
     public String index() {
         return "Hello from Spring Boot Application!!";
     }
+
+    @GetMapping("/test")
+    public String testEndpoint() {
+        return "This is a test endpoint";
+    }
 }
