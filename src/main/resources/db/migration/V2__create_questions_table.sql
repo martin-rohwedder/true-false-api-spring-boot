@@ -3,8 +3,8 @@ CREATE TABLE questions (
     `text` LONGTEXT NOT NULL,
     answer BOOLEAN NOT NULL,
     category_id BIGINT NOT NULL,
-    created_at DATETIME,
-    updated_at DATETIME
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 ALTER TABLE questions
