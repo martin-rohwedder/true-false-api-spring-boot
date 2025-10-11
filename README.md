@@ -67,13 +67,14 @@ the down command will stop and remove the container. The compose file have creat
 
 ### 2. Setup production environment variables
 
-Create an environment file called `.env.docker.prod` at the project root and populate it with the following environment variables, using your database credentials.
-Notice that the **database host** may not be `localhost` if you are running the database from the docker compose file above. In this case the database host is the service name, which is `mysqldb`
+Create an environment file called `.env.docker.prod` at the project root and populate it with the following environment variables, using your database credentials, and setting an api key.
+Notice that the **host** may not be `localhost` if you are running the database from the docker compose file above. In this case the database host is the service name, which is `mysqldb`
 
 ```properties title=".env.docker.prod"
 DATABASE_URL=jdbc:mysql://<YOUR_HOST>:3306/<YOUR_DATABSE_NAME>
 DATABASE_USERNAME=<YOUR_DB_USERNAME>
 DATABASE_PASSWORD=<YOUR_DB_PASSWORD>
+API_KEY=<SECRET_API_KEY>
 ```
 
 The naming is important, as the projects docker compose file will use the environment variables from this specific file.
