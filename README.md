@@ -113,6 +113,13 @@ flyway.cleanDisabled=false
 
 You can now use the maven flyway commands like `mvn clean flyway:migrate` to migrate with flyway. This requires that [maven](https://maven.apache.org/install.html) and [java JDK](https://www.oracle.com/java/technologies/downloads/) is installed locally on your machine.
 
+## Populate the database with data
+
+You can create and insert your own questions and categories in the database, or you can use the predefined questions from the `testdata.sql` file, 
+which is found in the project root. You can also do a combination of course.
+
+> even though the file is called `testdata.sql`, the questions can be used in production if you want to
+
 ---
 
 &copy; 2025 Martin Rohwedder

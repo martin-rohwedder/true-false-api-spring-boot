@@ -9,7 +9,6 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.Date;
-import java.util.Set;
 
 @Entity
 @Table(name = "categories")
@@ -28,9 +27,6 @@ public class Category {
 
     @Column(name = "description", nullable = false)
     private String description;
-
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Question> questions;
 
     @Column(name = "created_at", updatable = false)
     @CreationTimestamp
