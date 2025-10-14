@@ -91,7 +91,9 @@ To run the project using docker, open up a terminal window at the project root l
 docker compose up -d
 ```
 
-This will build the project and start it up. You can now access the API at `http://localhost`
+This will build the project and start it up. You can now access the API at `http://localhost:8080` 
+To test the api, I can recommend using [Postman API Platform](https://www.postman.com/).
+
 To stop the container, use the following command:
 
 ```bash
