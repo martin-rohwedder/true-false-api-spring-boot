@@ -6,9 +6,9 @@ services:
     env_file:
       - path: .env.docker.prod
     ports:
-      - "80:8080"
+      - "8080:8080"
     expose:
-      - "80"
+      - "8080"
     networks:
       mysql_db_network: {}
 
