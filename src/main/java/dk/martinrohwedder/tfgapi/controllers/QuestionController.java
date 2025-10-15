@@ -44,11 +44,8 @@ public class QuestionController {
     @GetMapping("/{id}")
     public ResponseEntity<QuestionDto> findQuestionById(@PathVariable long id) {
         var question = questionRepository.findById(id);
-        if (question.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
 
-        return ResponseEntity.ok(questionMapper.toDto(question.get()));
+        return question.map(value -> ResponseEntity.ok(questionMapper.toDto(value))).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     // POST: /api/questions
