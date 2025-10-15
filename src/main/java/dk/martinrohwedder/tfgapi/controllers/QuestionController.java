@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api/questions")
+@RequestMapping("/api/${spring.application.api-version}/questions")
 public class QuestionController {
     private final QuestionRepository questionRepository;
     private final QuestionMapper questionMapper;
