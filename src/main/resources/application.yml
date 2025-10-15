@@ -2,7 +2,6 @@ spring:
   application:
     name: "True/False Game API"
     api-key: ${API_KEY}
-    api-version: V1
   config:
     import: optional:file:.env[.properties]
   datasource:

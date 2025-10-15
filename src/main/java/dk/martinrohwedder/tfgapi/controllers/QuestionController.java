@@ -1,18 +1,24 @@
 package dk.martinrohwedder.tfgapi.controllers;
 
+import dk.martinrohwedder.tfgapi.dtos.AddQuestionRequest;
 import dk.martinrohwedder.tfgapi.dtos.QuestionDto;
 import dk.martinrohwedder.tfgapi.mappers.QuestionMapper;
+import dk.martinrohwedder.tfgapi.repositories.CategoryRepository;
 import dk.martinrohwedder.tfgapi.repositories.QuestionRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api/${spring.application.api-version}/questions")
+@RequestMapping("/api/questions")
 public class QuestionController {
     private final QuestionRepository questionRepository;
     private final QuestionMapper questionMapper;
+    private final CategoryRepository categoryRepository;
 
     @GetMapping
     public ResponseEntity<Iterable<QuestionDto>> findAllQuestions(@RequestParam(name = "categoryTitle", required = false) String categoryTitle) {
@@ -42,5 +48,26 @@ public class QuestionController {
         }
 
         return ResponseEntity.ok(questionMapper.toDto(question));
+    }
+
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<QuestionDto> addQuestion(@RequestBody AddQuestionRequest request, UriComponentsBuilder uriBuilder) {
+        // Fetch category
+        var category = categoryRepository.findById(request.getCategoryId()).orElse(null);
+        if (category == null) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        // Map request to question and save it.
+        var question = questionMapper.toEntity(request);
+        question.setCategory(category);
+        questionRepository.save(question);
+        var questionDto = questionMapper.toDto(question);
+        System.out.println(questionDto);
+
+        // Create header location with the uri for fetching the new question
+        var uriLocation = uriBuilder.path("/api/questions/{id}").buildAndExpand(questionDto.getId()).toUri();
+
+        return ResponseEntity.created(uriLocation).body(questionDto);
     }
 }
