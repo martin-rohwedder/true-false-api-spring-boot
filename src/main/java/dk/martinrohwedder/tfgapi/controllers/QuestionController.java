@@ -1,6 +1,6 @@
 package dk.martinrohwedder.tfgapi.controllers;
 
-import dk.martinrohwedder.tfgapi.dtos.AddQuestionRequest;
+import dk.martinrohwedder.tfgapi.dtos.QuestionRequest;
 import dk.martinrohwedder.tfgapi.dtos.QuestionDto;
 import dk.martinrohwedder.tfgapi.mappers.QuestionMapper;
 import dk.martinrohwedder.tfgapi.repositories.CategoryRepository;
@@ -53,7 +53,7 @@ public class QuestionController {
 
     // POST: /api/questions
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<QuestionDto> addQuestion(@RequestBody AddQuestionRequest request, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<QuestionDto> addQuestion(@RequestBody QuestionRequest request, UriComponentsBuilder uriBuilder) {
         // Fetch category
         var category = categoryRepository.findById(request.getCategoryId());
         if (category.isEmpty()) {

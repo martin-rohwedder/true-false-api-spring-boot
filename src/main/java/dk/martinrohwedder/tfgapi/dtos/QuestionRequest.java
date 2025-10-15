@@ -9,7 +9,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class AddQuestionRequest {
+public class QuestionRequest {
     @JsonProperty("questionText")
     private String text;
 
