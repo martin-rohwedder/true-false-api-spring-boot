@@ -5,10 +5,7 @@ import dk.martinrohwedder.tfgapi.mappers.QuestionMapper;
 import dk.martinrohwedder.tfgapi.repositories.QuestionRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @AllArgsConstructor
 @RestController
@@ -18,11 +15,23 @@ public class QuestionController {
     private final QuestionMapper questionMapper;
 
     @GetMapping
-    public Iterable<QuestionDto> findAllQuestions() {
-        return questionRepository.findAll()
+    public ResponseEntity<Iterable<QuestionDto>> findAllQuestions(@RequestParam(name = "categoryTitle", required = false) String categoryTitle) {
+        if (categoryTitle != null) {
+            var questions = questionRepository.findAllByCategoryTitle(categoryTitle)
+                    .stream()
+                    .map(questionMapper::toDto)
+                    .toList();
+            if (questions.isEmpty()) {
+                return ResponseEntity.notFound().build();
+            } else {
+                return ResponseEntity.ok(questions);
+            }
+        }
+
+        return ResponseEntity.ok(questionRepository.findAll()
                 .stream()
                 .map(questionMapper::toDto)
-                .toList();
+                .toList());
     }
 
     @GetMapping("/{id}")
