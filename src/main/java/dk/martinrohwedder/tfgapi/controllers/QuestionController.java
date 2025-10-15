@@ -6,7 +6,6 @@ import dk.martinrohwedder.tfgapi.mappers.QuestionMapper;
 import dk.martinrohwedder.tfgapi.repositories.CategoryRepository;
 import dk.martinrohwedder.tfgapi.repositories.QuestionRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +19,7 @@ public class QuestionController {
     private final QuestionMapper questionMapper;
     private final CategoryRepository categoryRepository;
 
+    // GET: /api/questions
     @GetMapping
     public ResponseEntity<Iterable<QuestionDto>> findAllQuestions(@RequestParam(name = "categoryTitle", required = false) String categoryTitle) {
         if (categoryTitle != null) {
@@ -40,6 +40,7 @@ public class QuestionController {
                 .toList());
     }
 
+    // GET /api/questions/{id}
     @GetMapping("/{id}")
     public ResponseEntity<QuestionDto> findQuestionById(@PathVariable Long id) {
         var question = questionRepository.findById(id).orElse(null);
@@ -50,6 +51,7 @@ public class QuestionController {
         return ResponseEntity.ok(questionMapper.toDto(question));
     }
 
+    // POST: /api/questions
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<QuestionDto> addQuestion(@RequestBody AddQuestionRequest request, UriComponentsBuilder uriBuilder) {
         // Fetch category
@@ -63,7 +65,6 @@ public class QuestionController {
         question.setCategory(category);
         questionRepository.save(question);
         var questionDto = questionMapper.toDto(question);
-        System.out.println(questionDto);
 
         // Create header location with the uri for fetching the new question
         var uriLocation = uriBuilder.path("/api/questions/{id}").buildAndExpand(questionDto.getId()).toUri();
