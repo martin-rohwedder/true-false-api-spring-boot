@@ -72,6 +72,30 @@ public class QuestionController {
         return ResponseEntity.created(uriLocation).body(questionDto);
     }
 
+    // PUT: /api/questions/{id}
+    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<QuestionDto> updateQuestion(@PathVariable long id, @RequestBody QuestionRequest request) {
+        // Fetch question
+        var question = questionRepository.findById(id);
+        if (question.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        // Fetch category
+        var category = categoryRepository.findById(request.getCategoryId());
+        if (category.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        // map requests and update the question
+        var updatedQuestion = questionMapper.toEntity(request);
+        updatedQuestion.setId(question.get().getId());
+        updatedQuestion.setCategory(category.get());
+        questionRepository.save(updatedQuestion);
+
+        return ResponseEntity.ok(questionMapper.toDto(updatedQuestion));
+    }
+
     // DELETE: /api/questions/{id}
     @DeleteMapping("/{id}")
     public ResponseEntity<String> removeQuestion(@PathVariable long id) {
