@@ -27,7 +27,7 @@ public class CategoryController {
     }
 
     // GET: /api/categories/{id}
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<CategoryDto> findCategoryById(@PathVariable long id) {
         var category = categoryRepository.findById(id);
         return category.map(value -> ResponseEntity.ok(categoryMapper.toDto(value))).orElseGet(() -> ResponseEntity.notFound().build());
@@ -45,5 +45,22 @@ public class CategoryController {
         var uriLocation = uriBuilder.path("/api/categories/{id}").buildAndExpand(categoryDto.getId()).toUri();
 
         return ResponseEntity.created(uriLocation).body(categoryDto);
+    }
+
+    // PUT: /api/categories/{id}
+    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<CategoryDto> updateCategory(@PathVariable long id, @RequestBody CategoryRequest request) {
+        // Fetch the category
+        var category = categoryRepository.findById(id);
+        if (category.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        // Map request and update the category
+        var updatedCategory = categoryMapper.toEntity(request);
+        updatedCategory.setId(category.get().getId());
+        categoryRepository.save(updatedCategory);
+
+        return ResponseEntity.ok(categoryMapper.toDto(updatedCategory));
     }
 }
