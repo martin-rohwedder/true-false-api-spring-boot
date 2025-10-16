@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * DTO used when a user is adding a new question
+ * Request object used when a user is adding or updating a question
  */
 @Getter
 @Setter
