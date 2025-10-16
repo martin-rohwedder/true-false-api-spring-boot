@@ -63,4 +63,16 @@ public class CategoryController {
 
         return ResponseEntity.ok(categoryMapper.toDto(updatedCategory));
     }
+
+    // DELETE: /api/categories/{id}
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> removeCategory(@PathVariable long id) {
+        var category = categoryRepository.findById(id);
+        if (category.isPresent()) {
+            categoryRepository.delete(category.get());
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.notFound().build();
+    }
 }
