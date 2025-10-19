@@ -91,8 +91,8 @@ To run the project using docker, open up a terminal window at the project root l
 docker compose up -d
 ```
 
-This will build the project and start it up. You can now access the API at `http://localhost:8080/swagger-ui/index.html` 
-To test the api, I can also recommend using [Postman API Platform](https://www.postman.com/) as it offers more features.
+This will build the project and start it up. You can now access the API at `http://localhost:8080` and test the endpoints using the swagger UI.
+I can also recommend using [Postman API Platform](https://www.postman.com/) to test the API, as it offers more features.
 
 To stop the container, use the following command:
 

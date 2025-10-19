@@ -35,6 +35,6 @@ public class SecurityConfiguration {
     // Ignore the use of authorization for patterns regarding swagger UI
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().requestMatchers("/swagger-ui/**", "/v3/api-docs*/**");
+        return (web) -> web.ignoring().requestMatchers("/swagger-ui/**", "/v3/api-docs*/**", "/");
     }
 }
