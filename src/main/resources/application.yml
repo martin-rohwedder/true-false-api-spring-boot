@@ -1,6 +1,8 @@
 spring:
   application:
     name: "True/False Game API"
+    description: "An API for providing True/False questions in different categories."
+    version: 1
     api-key: ${API_KEY}
   config:
     import: optional:file:.env[.properties]
